@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | eShelf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #1a1a1d, #0e0e10);
+      color: #e5e5e7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .auth-box {
+      background: #161618;
+      border: 1px solid #2a2a2e;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(155, 93, 229, 0.15);
+      padding: 40px 30px;
+      width: 340px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .auth-box:hover {
+      box-shadow: 0 6px 30px rgba(155, 93, 229, 0.25);
+      transform: translateY(-3px);
+    }
+
+    h2 {
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: 1.6em;
+      letter-spacing: 0.5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #3a3a3d;
+      border-radius: 10px;
+      background: #121214;
+      color: #f5f5f5;
+      outline: none;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: #9b5de5;
+      box-shadow: 0 0 8px rgba(155, 93, 229, 0.4);
+    }
+
+    button {
+      width: 100%;
+      background: #9b5de5;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #7c3aed;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+      transform: translateY(-2px);
+    }
+
+    #message {
+      margin-top: 12px;
+      color: #ef4444;
+      font-size: 0.9em;
+    }
+
+    .toggle-link {
+      color: #9b5de5;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 0.9em;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.85em;
+      color: #888;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-box">
+    <!-- Login Form -->
+    <div id="loginForm">
+      <h2>Welcome to eShelf</h2>
+      <input type="text" id="loginUsername" placeholder="Username" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+
+      <select id="loginRole">
+        <option value="customer">Customer</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      <button onclick="login()">Login</button>
+      <p id="message"></p>
+      <p>Don't have an account? <span class="toggle-link" onclick="toggleForm('signup')">Sign up</span></p>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="hidden">
+      <h2>Create Account</h2>
+      <input type="text" id="signupUsername" placeholder="Choose a username" required>
+      <input type="email" id="signupEmail" placeholder="Enter your email" required>
+      <input type="password" id="signupPassword" placeholder="Create a password" required>
+
+      <select id="signupRole">
+        <option value="customer">Customer</option>
+      </select>
+
+      <button onclick="signup()">Sign Up</button>
+      <p id="signupMessage"></p>
+      <p>Already have an account? <span class="toggle-link" onclick="toggleForm('login')">Login</span></p>
+    </div>
+  </div>
+
+  <footer>© 2025 eShelf Bookstore</footer>
+
+  <script>
+    function toggleForm(form) {
+      document.getElementById('loginForm').classList.toggle('hidden', form === 'signup');
+      document.getElementById('signupForm').classList.toggle('hidden', form === 'login');
+    }
+
+    function login() {
+      const user = document.getElementById("loginUsername").value;
+      const pass = document.getElementById("loginPassword").value;
+      const role = document.getElementById("loginRole").value;
+      if (user && pass) {
+        if (role === "admin") {
+          window.location.href = "admin.html";
+        } else {
+          window.location.href = "index.html";
+        }
+      } else {
+        document.getElementById("message").textContent = "Please fill all fields!";
+      }
+    }
+
+    function signup() {
+      const user = document.getElementById("signupUsername").value;
+      const email = document.getElementById("signupEmail").value;
+      const pass = document.getElementById("signupPassword").value;
+      if (user && email && pass) {
+        document.getElementById("signupMessage").style.color = "#22c55e";
+        document.getElementById("signupMessage").textContent = "Account created successfully! You can now login.";
+        setTimeout(() => toggleForm('login'), 1500);
+      } else {
+        document.getElementById("signupMessage").textContent = "Please fill all fields!";
+      }
+    }
+  </script>
+
+</body>
+</html>
